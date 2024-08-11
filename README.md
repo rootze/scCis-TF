@@ -1,4 +1,4 @@
-# hdTOBIAS - high dimensional Transcription factor Occupancy prediction By Investigation of ATAC-seq Signal <img src="images/hdTOBIAS_logo.png" align="right" height="15%" width="15%" /> <img src="images/hdTOBIAS_logo_database.png" align="right" height="15%" width="15%" />
+# hdTOBIAS - high dimensional Transcription factor Occupancy prediction By Investigation of ATAC-seq Signal  <img src="images/hdTOBIAS_logo_database.png" align="right" height="20%" width="20%" /> <img src="images/hdTOBIAS_logo.png" align="right" height="20%" width="20%" />
 
 [![DOI](https://zenodo.org/badge/473458154.svg)](https://zenodo.org/badge/latestdoi/473458154)
 <!-- [![version](https://img.shields.io/badge/version-1.0.4-red.svg)](https://semver.org) -->
