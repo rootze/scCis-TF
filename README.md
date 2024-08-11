@@ -2,8 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/473458154.svg)](https://zenodo.org/badge/latestdoi/473458154)
 <!-- [![version](https://img.shields.io/badge/version-1.0.4-red.svg)](https://semver.org) -->
-[![Open Issues](https://img.shields.io/github/issues-raw/swaruplabUCI/ArchRtoSignac?label=open%20issues&color=yellow)](https://github.com/swaruplabUCI/ArchRtoSignac/issues)
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/swaruplabUCI/ArchRtoSignac?label=closed%20issues&color=green)](https://github.com/swaruplabUCI/ArchRtoSignac/issues?q=is%3Aissue+is%3Aclosed)
+[![Open Issues](https://github.com/rootze/hdTOBIAS/issues?q=is%3Aopen&color=yellow)](https://github.com/rootze/hdTOBIAS/issues?q=is%3Aopen)
+[![Closed Issues](https://github.com/rootze/hdTOBIAS/issues?q=is%3Aclosed&color=green)](https://github.com/rootze/hdTOBIAS/issues?q=is%3Aclosed)
 
 
 Introduction
