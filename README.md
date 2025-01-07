@@ -1,9 +1,9 @@
-# scCis-TF - single cell Cis-regulatory Transcription Factor occupancy analysis <img src="images/logo_database.png" align="right" height="20%" width="20%" /> <img src="images/logo.png" align="right" height="20%" width="20%" />
+# scROAD: single-cell Regulatory Occupancy Analysis of Dynamics <img src="images/logo_database.png" align="right" height="20%" width="20%" /> <img src="images/logo.png" align="right" height="20%" width="20%" />
 
 <!-- [![DOI](https://zenodo.org/badge/473458154.svg)](https://zenodo.org/badge/latestdoi/473458154) -->
 <!-- [![version](https://img.shields.io/badge/version-1.0.4-red.svg)](https://semver.org) -->
-[![Open Issues](https://img.shields.io/github/issues-raw/rootze/scCis-TF?label=open%20issues&color=yellow)](https://github.com/rootze/scCis-TF/issues?q=is%3Aopen)
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/rootze/scCis-TF?label=closed%20issues&color=green)](https://github.com/rootze/scCis-TF/issues?q=is%3Aclosed)
+[![Open Issues](https://img.shields.io/github/issues-raw/rootze/scROAD?label=open%20issues&color=yellow)](https://github.com/rootze/scROAD/issues?q=is%3Aopen)
+[![Closed Issues](https://img.shields.io/github/issues-closed-raw/rootze/scROAD?label=closed%20issues&color=green)](https://github.com/rootze/scROAD/issues?q=is%3Aclosed)
 
 
 Introduction
@@ -49,4 +49,4 @@ Zechuan Shi [@rootze](https://github.com/rootze) created analysis documents that
 
 Getting help
 ------------
-In case of any issues/questions/comments, please check out the [Issues](https://github.com/rootze/scCis-TF/issues). Otherwise, please write an issue for any questions [here](https://github.com/rootze/scCis-TF/issues).
+In case of any issues/questions/comments, please check out the [Issues](https://github.com/rootze/scROAD/issues). Otherwise, please write an issue for any questions [here](https://github.com/rootze/scROAD/issues).
