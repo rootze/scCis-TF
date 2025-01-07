@@ -15,6 +15,20 @@ The complete code has already been shared in the paper: scMultiomics_identifies_
 
 To support the paper, we have built a database for checking the prediction of TF binding difference between two dementia and their age-matched control; and a package for easy running multiple code before/during TOBIAS and integrating co-accessibility results from Cicero.
 
+scROAD
+------------
+
+**scROAD** stands for:
+
+1. **single-cell Regulatory Occupancy Analysis of Dynamics**:  
+   This highlights the analytical framework and methodology used for studying transcription factor occupancy and regulatory changes in single-cell data.
+
+2. **Single-cell Regulatory Occupancy Archive in Dementia**:  
+   This emphasizes the curated database or archive for dementia-related research, housing single-cell regulatory data for further exploration.
+
+These dual meanings reflect the comprehensive scope of scROAD, addressing both the analytical methods and the accessible resource for the scientific community.
+
+
 How to cite
 ------------
 
