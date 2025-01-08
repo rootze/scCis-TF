@@ -317,14 +317,15 @@ server <- function(input, output, session) {
     # Update status message based on data loading
     output$status <- renderUI({
       if (is.null(loaded_data)) {
-        tags$p("Failed to load data or data exceeds memory limits.", 
-               style = "color: red; font-weight: bold; font-size: 16px;")
-      } else if (nrow(loaded_data) == 0) {
-        tags$p("Data loaded successfully but no results found.", 
-               style = "color: orange; font-weight: bold; font-size: 16px;")
+        tags$p(
+          "Failed to load data or data exceeds memory limits.",
+          style = "color: red; font-weight: bold; font-size: 15px;"
+        )
       } else {
-        tags$p("Data loaded successfully.", 
-               style = "color: green; font-weight: bold; font-size: 16px;")
+        tags$p(
+          "Data loaded successfully. Ready for filtering.",
+          style = "color: green; font-weight: bold; font-size: 15px;"
+        )
       }
     })
   })
@@ -362,11 +363,23 @@ server <- function(input, output, session) {
   observe({
     if (!is.null(data()) && nrow(filtered_data()) == 0) {
       output$status <- renderUI({
-        tags$p("Data loaded successfully but no results found.",
-               style = "color: orange; font-weight: bold; font-size: 16px;")
+        tagList(
+          tags$p(
+            "Data loaded successfully, but no matching results were found. This may occur if the selected transcription factor (TF) or target gene is not present on the specified chromosome, or if there are no binding events within the chosen criteria. Please review your selections and refine your search parameters.",
+            style = "color: red; font-weight: bold; font-size: 15px;"
+          )
+        )
+      })
+    } else if (!is.null(data()) && nrow(filtered_data()) > 0) {
+      output$status <- renderUI({
+        tags$p(
+          "Data loaded successfully. Results displayed below.",
+          style = "color: green; font-weight: bold; font-size: 15px;"
+        )
       })
     }
   })
+  
   
   # Disable download buttons initially
   observe({
