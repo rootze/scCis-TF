@@ -13,17 +13,17 @@ library(fields) # # Required for image.plot function # install.packages("fields"
 ui <- fluidPage(
   useShinyjs(),  # Enable shinyjs for additional JavaScript functionalities
   titlePanel("scROAD - Single-cell Regulatory Occupancy Archive in Dementia"),
-  
+
   tabsetPanel(
     tabPanel("Home",
              fluidPage(
                titlePanel("Welcome to the Single-cell Regulatory Occupancy Archive in Dementia"),
-               
+
                # First row with the BioSciIcon
                fluidRow(
                  column(12, img(src = "https://www.bio.uci.edu/wp-content/uploads/2024/04/uci-charlie-dunlop-dark-blue-logo-with-gradient-dna_optimized.png", height = "50px", style="display: block; margin-left: 0;"))
                ),
-               
+
                # Second row with the other three logos
                fluidRow(
                  column(4, img(src = "https://raw.githubusercontent.com/rootze/rootze.github.io/master/assets/img/swaruplab.png", height = "100px", style="display: block; margin-left: auto; margin-right: auto;")),
@@ -52,7 +52,7 @@ ui <- fluidPage(
                p(HTML('GitHub: <a href="https://rootze.github.io/" target="_blank">rootze.github.io</a>'))
              )
     ),
-    
+
     tabPanel("Introductory Vignettes",
              fluidPage(
                tags$style(HTML("
@@ -137,7 +137,7 @@ ui <- fluidPage(
                img(src = "https://raw.githubusercontent.com/rootze/scROAD/main/images/scROAD_IntroductoryVignettes.png", height = "800px", style="display: block; margin-left: auto; margin-right: auto;")
              )
     ),
-    
+
     tabPanel("TF Occupancy Data Explorer",
              sidebarLayout(
                sidebarPanel(
@@ -146,25 +146,25 @@ ui <- fluidPage(
                  selectInput("cellType", "Select Cell Type for TF occupancy", choices = c("ASC", "EX", "INH", "ODC", "MG", "OPC", "PER.END")),
                  selectInput("peakType", "Select Peak Type for TF occupancy", choices = c("Enhancer", "Exonic", "Promoter")),
                  selectInput("chromosome", "Select Chromosome for Target Gene/TF locate on", choices = c(paste0("chr", 1:22), "chrX")),
-                 
+
                  # Target Selection Section
                  tags$div(style = "background-color: #eae0bb; padding: 10px; border-radius: 5px; margin-top: 20px;",
                           h4("Target Selection"),
                           textInput("targetGene", "Enter Target Gene Name", value = ""),
                           textInput("tfName", "Enter Transcription Factor Name", value = "")
                  ),
-                 
+
                  # Chr Position Section
                  tags$div(style = "background-color: #d2c1e2; padding: 10px; border-radius: 5px; margin-top: 20px;",
                           h4("Chr Base Position Search"),
                           p(HTML('<span style="font-size:11px;">This Base position search could be used for searching SNP/nucleotide base position, e.g.: rs9272480 - chr6:32638023 (GRCh38), you can enter Base Position 32638023, no need to put chr6, since it is selected above. You can find SNP position through <a href="https://www.ncbi.nlm.nih.gov/snp/" target="_blank">dbSNP-NCBI</a>. Please be aware that we performed our analyses based on the reference: Genome Reference Consortium Human Build 38 (GRCh38), so ensure that you search for human genome positions accordingly.</span>')),
                           numericInput("baseLocation", "Enter Base Position", value = NULL, min = 0),
                           numericInput("windowSize", "Enter Window Size (bp)", value = 1000, min = 0),
-                          radioButtons("searchType", "Select Search Type for the Base Position Search", 
+                          radioButtons("searchType", "Select Search Type for the Base Position Search",
                                        choices = list("Target Gene OCR" = "target", "TFBS" = "tfbs"),
                                        selected = "target")
                  ),
-                 
+
                  fluidRow(
                    column(6, actionButton("loadData", "Load Data")),
                    column(6, downloadButton("downloadData", "Download TFBS Data"))
@@ -178,14 +178,14 @@ ui <- fluidPage(
                  uiOutput("progressUI"),
                  uiOutput("status")  # Changed to uiOutput to support HTML rendering
                ),
-               
+
                mainPanel(
                  DTOutput("table"),
                  plotOutput("networkPlot")
                )
              )
     ),
-    
+
     tabPanel("Blog: TF Footprinting on Disease",
              fluidPage(
                h3("Unveiling the Power of TF Footprinting: A New Frontier in Regulatory Network Analysis for Neurodegenerative Diseases"),
@@ -210,7 +210,7 @@ ui <- fluidPage(
                img(src = "https://raw.githubusercontent.com/rootze/scROAD/main/images/TF_Footprinting_Scenario.png", height = "450px", style = "display: block; margin: 0 auto;"),
                p("Fig. 1 shows two key scenarios of transcription factor binding in open chromatin regions. Scenario 1 highlights regions where open chromatin coincides with functional TF binding, while Scenario 2 depicts regions with open chromatin but without active TF binding, indicating chromatin relaxation rather than regulation."),
                hr(),
-               h4("A Novel Approach: TF Footprinting with TOBIAS"),
+               h4("A Funtional TF Footprinting Approach on Disease Related Regulatory Network"),
                p(HTML("To address these challenges, we reimplement a bulk ATAC method on single cell data that incorporates TF footprinting and motif-flanking accessibility using the <a href='https://doi.org/10.1038/s41467-020-18035-1' target='_blank'>TOBIAS</a> package. This approach offers a more accurate and confident way to identify active TF binding events.")),
                tags$ul(
                  tags$li("TOBIAS calculates TF occupancy across all accessible chromatin regions, allowing us to:"),
@@ -218,14 +218,13 @@ ui <- fluidPage(
                    tags$li("Distinguish TF-occupied enhancers from non-functional motifs."),
                    tags$li("Assess footprinting at binding sites and motif-flanking accessibility."),
                    tags$li("Compare TF occupancy between disease and control conditions.")
+                 ),
+                 tags$li("Key Advantages of the TF Footprinting Approach on Disease Related Regulatory Network:"),
+                 tags$ul(
+                   tags$li("Direct Measurement of TF Occupancy: Unlike SCENIC and SCENIC+, which rely on motif enrichment, our method directly measures TF binding, reducing false positives."),
+                   tags$li("Higher-Resolution Insights: By distinguishing functional enhancer-TF interactions from non-functional motifs, we provide a more accurate view of regulatory networks."),
+                   tags$li("Enhanced Integration: Combining snATAC-seq and snRNA-seq data allows for comprehensive analyses of TF-mediated regulation in specific cell types.")
                  )
-               ),
-               hr(),
-               h4("Key Advantages of the New Approach"),
-               tags$ul(
-                 tags$li("Direct Measurement of TF Occupancy: Unlike SCENIC and SCENIC+, which rely on motif enrichment, our method directly measures TF binding, reducing false positives."),
-                 tags$li("Higher-Resolution Insights: By distinguishing functional enhancer-TF interactions from non-functional motifs, we provide a more accurate view of regulatory networks."),
-                 tags$li("Enhanced Integration: Combining snATAC-seq and snRNA-seq data allows for comprehensive analyses of TF-mediated regulation in specific cell types.")
                ),
                hr(),
                h4("Implications for Neurodegenerative Disease Research"),
@@ -233,7 +232,7 @@ ui <- fluidPage(
                p("For example, this approach can help clarify the role of chromatin accessibility changes in neurodegeneration, distinguishing functional regulation from non-functional chromatin relaxation. Additionally, it provides a valuable resource for exploring TF activity and its implications in disease contexts."),
                hr(),
                h4("Conclusion"),
-               p("Our novel TF footprinting approach represents a major step forward in regulatory network analysis, addressing the limitations of conventional methods like SCENIC and SCENIC+. By leveraging tools like TOBIAS to measure TF occupancy directly, we can distinguish functional regulatory events from non-functional motifs, providing deeper insights into gene regulation in neurodegenerative diseases. As we continue to refine these methods, they will undoubtedly play a critical role in shaping the future of genomic research and therapeutic discovery."),
+               p("This funtional TF footprinting approach represents a major step forward in regulatory network analysis, addressing the limitations of conventional methods like SCENIC and SCENIC+. By leveraging tools like TOBIAS to measure TF occupancy directly, we can distinguish functional regulatory events from non-functional motifs, providing deeper insights into gene regulation in neurodegenerative diseases. As we continue to refine these methods, they will undoubtedly play a critical role in shaping the future of genomic research and therapeutic discovery."),
                hr(),
                h4("References"),
                tags$ol(
@@ -252,7 +251,7 @@ ui <- fluidPage(
                  tags$li("M. Bentsen, P. Goymann, H. Schultheis, K. Klee, A. Petrova, R. Wiegandt, A. Fust, J. Preussner, C. Kuenne, T. Braun, et al., ATAC-seq footprinting unravels kinetics of transcription factor binding during zygotic genome activation. Nat. Commun. 11, 4267 (2020). DOI: ",
                          tags$a(href = "https://doi.org/10.1038/s41467-020-18035-1", "10.1038/s41467-020-18035-1", target = "_blank"))
                )
-               
+
              )
     )
   )
@@ -260,10 +259,10 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output, session) {
-  
+
   # Reactive values to track the state of data loading and plot generation
   values <- reactiveValues(data_loaded = FALSE, plot_generated = FALSE)
-  
+
   # Function to load data based on inputs
   load_data <- function(disease, cell_type, peak_type, chromosome) {
     file_path <- file.path("/Users/zetristanshi/Desktop/TFBS_database/Shiny", disease, cell_type, peak_type, paste0(chromosome, "_TFBS_database.rda"))
@@ -278,17 +277,17 @@ server <- function(input, output, session) {
       return(NULL)
     }
   }
-  
+
   # Reactive value to store the data
   data <- reactiveVal(NULL)
-  
+
   # Observe the loadData button
   observeEvent(input$loadData, {
     # Clear the previous data from memory and reset flags
     data(NULL)
     values$data_loaded <- FALSE
     values$plot_generated <- FALSE
-    
+
     output$progressUI <- renderUI({
       tagList(
         shiny::withProgress(message = 'Loading data...', value = 0, {
@@ -297,7 +296,7 @@ server <- function(input, output, session) {
         })
       )
     })
-    
+
     loaded_data <- tryCatch({
       load_data(input$disease, input$cellType, input$peakType, input$chromosome)
     }, error = function(e) {
@@ -307,13 +306,13 @@ server <- function(input, output, session) {
       })
       NULL
     })
-    
+
     # Update the reactive value and flags
     data(loaded_data)
     if (!is.null(loaded_data)) {
       values$data_loaded <- TRUE
     }
-    
+
     # Update status message based on data loading
     output$status <- renderUI({
       if (is.null(loaded_data)) {
@@ -329,7 +328,7 @@ server <- function(input, output, session) {
       }
     })
   })
-  
+
   # Reactive expression to filter data based on user input
   filtered_data <- reactive({
     req(values$data_loaded) # Ensure data is loaded before filtering
@@ -352,13 +351,13 @@ server <- function(input, output, session) {
     }
     df
   })
-  
+
   # Output table
   output$table <- renderDT({
     req(filtered_data()) # Ensure data is available
     datatable(filtered_data(), options = list(scrollX = TRUE, scrollY = "500px"))
   })
-  
+
   # Update status message based on filtering
   observe({
     if (!is.null(data()) && nrow(filtered_data()) == 0) {
@@ -379,28 +378,28 @@ server <- function(input, output, session) {
       })
     }
   })
-  
-  
+
+
   # Disable download buttons initially
   observe({
     shinyjs::disable("downloadData")
     shinyjs::disable("downloadPlot")
   })
-  
+
   # Enable the data download button if data is loaded
   observe({
     if (values$data_loaded) {
       shinyjs::enable("downloadData")
     }
   })
-  
+
   # Enable the plot download button if the plot is generated
   observe({
     if (values$plot_generated) {
       shinyjs::enable("downloadPlot")
     }
   })
-  
+
   # Show warning if attempting to download data without loading it
   observeEvent(input$downloadData, {
     if (!values$data_loaded) {
@@ -412,7 +411,7 @@ server <- function(input, output, session) {
       ))
     }
   })
-  
+
   # Show warning if attempting to download plot without generating it
   observeEvent(input$downloadPlot, {
     if (!values$plot_generated) {
@@ -424,7 +423,7 @@ server <- function(input, output, session) {
       ))
     }
   })
-  
+
   # Download filtered data as CSV with a progress indicator
   output$downloadData <- downloadHandler(
     filename = function() {
@@ -432,70 +431,70 @@ server <- function(input, output, session) {
     },
     content = function(file) {
       withProgress(message = 'Preparing download...', value = 0, {
-        
+
         # Simulate some progress steps (you can adjust or remove these if not needed)
         incProgress(0.3, detail = "Filtering data...")
         Sys.sleep(0.5)  # Simulate time-consuming tasks
-        
+
         incProgress(0.3, detail = "Writing CSV file...")
         Sys.sleep(0.5)  # Simulate more time-consuming tasks
-        
+
         # Write the filtered data to the file
         write.csv(filtered_data(), file, row.names = FALSE)
-        
+
         # Finalize progress
         incProgress(0.4, detail = "Finalizing...")
         Sys.sleep(0.5)  # Simulate final steps
-        
+
       })
     }
   )
-  
-  
+
+
   # Observe the plotNetwork button and construct the network plot
   observeEvent(input$plotNetwork, {
     req(filtered_data())
-    
+
     # Extract TFs and target genes
-    tf_gene_pairs <- distinct(filtered_data(), TFBS_name, Peak1_nearestGene, .keep_all = TRUE) %>% 
+    tf_gene_pairs <- distinct(filtered_data(), TFBS_name, Peak1_nearestGene, .keep_all = TRUE) %>%
       select(TFBS_name, Peak1_nearestGene, log2FC_TFBS)
-    
+
     # Simplified importance logic: Use log2FC_TFBS as a gain-like metric
-    tf_gene_pairs <- tf_gene_pairs %>% 
-      rename(Gain = log2FC_TFBS) %>% 
+    tf_gene_pairs <- tf_gene_pairs %>%
+      rename(Gain = log2FC_TFBS) %>%
       arrange(desc(abs(Gain)))
-    
+
     # Keep top 20 pairs for visualization
-    top_tf_gene_pairs <- tf_gene_pairs %>% 
+    top_tf_gene_pairs <- tf_gene_pairs %>%
       top_n(20, wt = abs(Gain))
-    
+
     # Construct network
     graph_data <- graph_from_data_frame(top_tf_gene_pairs, directed = TRUE)
-    
+
     # Define colors for the gradient
     edge_colors <- colorRampPalette(c("blue", "white", "orange"))(100)
     E(graph_data)$color <- edge_colors[cut(E(graph_data)$Gain, breaks = 100)]
-    
+
     # Define shapes
     V(graph_data)$shape <- ifelse(V(graph_data)$name %in% top_tf_gene_pairs$TFBS_name, "square", "circle")
-    
+
     # Define sizes and labels
     V(graph_data)$size <- 12
     V(graph_data)$label.cex <- 0.8
     V(graph_data)$label.family <- "sans"
     V(graph_data)$color <- ifelse(V(graph_data)$shape == "square", "yellow", "lightblue")
-    
+
     # Set a seed for reproducibility
     set.seed(123)  # Replace 123 with your preferred seed number
-    
+
     # Generate layout using layout_nicely for the network
     layout <- layout_nicely(graph_data)
-    
+
     # Plot network with legend
     output$networkPlot <- renderPlot({
       par(mar = c(1, 1, 1, 7))  # Adjust margins to add space for the legend
-      plot(graph_data, 
-           layout = layout, 
+      plot(graph_data,
+           layout = layout,
            main = "TF-Gene Regulatory Network for Top 20 TF-Gene Pairs",
            vertex.label = V(graph_data)$name,
            vertex.label.color = "black",
@@ -505,24 +504,24 @@ server <- function(input, output, session) {
            edge.width = 2,
            vertex.shape = V(graph_data)$shape,
            edge.color = E(graph_data)$color)
-      
+
       # Add legend for shapes, adjusting position
       legend("topleft",  # Adjust position to avoid overlap with the color scale
-             legend = c("TF", "Gene"), 
+             legend = c("TF", "Gene"),
              pch = c(15, 16),  # Correct shape symbols # "15 -- TF (Square)", "16 -- Gene (Circle)"
-             col = c("yellow", "lightblue"), 
+             col = c("yellow", "lightblue"),
              pt.cex = 2,  # Increase point size in legend for visibility
              bty = "n", cex = 0.8)
-      
+
       # Add color scale
-      image.plot(legend.only = TRUE, zlim = c(-1, 1), col = edge_colors, 
+      image.plot(legend.only = TRUE, zlim = c(-1, 1), col = edge_colors,
                  legend.shrink = 0.5, smallplot = c(0.85, 0.88, 0.2, 0.8),
                  legend.args = list(text = "log2FC TFBS DX vs Cont", side = 2, font = 2, line = 1))
     }, res = 150)
-    
+
     # Update plot generation flag
     values$plot_generated <- TRUE
-    
+
     # Save the plot as a PDF file
     output$downloadPlot <- downloadHandler(
       filename = function() {
@@ -531,7 +530,7 @@ server <- function(input, output, session) {
       content = function(file) {
         pdf(file, width = 10, height = 10)  # Reduce size for better fit
         par(mar = c(1, 1, 1, 7))  # Adjust margins to add space for the legend
-        plot(graph_data, 
+        plot(graph_data,
              layout = layout,  # Use the same layout for reproducibility
              main = "TF-Gene Regulatory Network",
              vertex.label = V(graph_data)$name,
@@ -542,17 +541,17 @@ server <- function(input, output, session) {
              edge.width = 2,
              vertex.shape = V(graph_data)$shape,
              edge.color = E(graph_data)$color)
-        
+
         # Add legend for shapes, adjusting position
         legend("topleft",  # Adjust position to avoid overlap with the color scale
-               legend = c("TF", "Gene"), 
+               legend = c("TF", "Gene"),
                pch = c(15, 16),  # Correct shape symbols
-               col = c("yellow", "lightblue"), 
+               col = c("yellow", "lightblue"),
                pt.cex = 2,  # Increase point size in legend for visibility
                bty = "n", cex = 0.8)
-        
+
         # Add color scale
-        image.plot(legend.only = TRUE, zlim = c(-1, 1), col = edge_colors, 
+        image.plot(legend.only = TRUE, zlim = c(-1, 1), col = edge_colors,
                    legend.shrink = 0.5, smallplot = c(0.85, 0.88, 0.2, 0.8),
                    legend.args = list(text = "log2FC TFBS DX vs Cont", side = 2, font = 2, line = 1))
         dev.off()
@@ -561,5 +560,5 @@ server <- function(input, output, session) {
   })
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)
